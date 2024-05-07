@@ -8,7 +8,7 @@ def color_code_to_hexcodes(x: int) -> list[Hexcode]:
 
 def rgb_to_hex_stream(x: list[str] | list[int]) -> list[Hexcode]:
     if isinstance(x, list) and isinstance(x[0], str):
-        x = [int(i) for i in x]
+        x = [int(i, 16) for i in x]
 
     x = [hex(i) for i in x]
 

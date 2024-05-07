@@ -14,3 +14,10 @@ def split_byte_into_two(x: Hexcode) -> list[Hexcode]:
     remainder: int = x_int % (midi_max + 1)
 
     return [hex(i) for i in [first, remainder]]
+
+
+def convert_if_hex(x: int | bool | str) -> int:
+    if x is str:
+        return int(x, 16)
+    else:
+        return x
