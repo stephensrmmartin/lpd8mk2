@@ -69,7 +69,11 @@ class Color(Collection):
         hexcodes = rgb_to_hex_stream(hexcode)
         super().__init__([Setting(i) for i in hexcodes])
 
-class Program(BoundaryMixin, Setting):
+class ProgramSetting(BoundaryMixin, Setting):
     def __init__(self, x: int):
-        BoundaryMixin.__init__(self(x, 1, 4)).check_bounds(x)
+        BoundaryMixin.__init__(self, x, 1, 4).check_bounds(x)
         Setting.__init__(self, x)
+
+class LPD2MK2HeaderSetting(Collection):
+    def __init__(self):
+        super().__init__([Setting(i) for i in [SYSEX_AKAI, SYSEX_LPD8_MK2]])
