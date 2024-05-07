@@ -69,3 +69,7 @@ class Color(Collection):
         hexcodes = rgb_to_hex_stream(hexcode)
         super().__init__([Setting(i) for i in hexcodes])
 
+class Program(BoundaryMixin, Setting):
+    def __init__(self, x: int):
+        BoundaryMixin.__init__(self(x, 1, 4)).check_bounds(x)
+        Setting.__init__(self, x)
