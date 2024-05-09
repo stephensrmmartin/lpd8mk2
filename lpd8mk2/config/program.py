@@ -54,9 +54,9 @@ class Program(object):
         # return Collection(pads)
 
     def _compile(self, program: int):
-        settings = [LPD2MK2HeaderSetting(),
+        settings = [LPD8MK2HeaderSetting(),
                     SendSetting(),
-                    LPD2MK2SpacerSetting(),
+                    LPD8MK2SpacerSetting(),
                     ProgramSetting(program),
                     GlobalChannel(self.config["global_channel"]),
                     PressureMessage(self.config["pressure_message"]),

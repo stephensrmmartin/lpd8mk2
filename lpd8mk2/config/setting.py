@@ -101,11 +101,11 @@ class ProgramSetting(BoundaryMixin, Setting):
         BoundaryMixin.__init__(self, x, 1, 4).check_bounds(x)
         Setting.__init__(self, x)
 
-class LPD2MK2HeaderSetting(Collection):
+class LPD8MK2HeaderSetting(Collection):
     def __init__(self):
         super().__init__([Setting(i) for i in [SYSEX_AKAI, SYSEX_AKAI_2, SYSEX_LPD8_MK2]])
 
-class LPD2MK2SpacerSetting(Collection):
+class LPD8MK2SpacerSetting(Collection):
     def __init__(self):
         super().__init__([Setting(i) for i in [SYSEX_LPD8_MK2_SPACER_1, SYSEX_LPD8_MK2_SPACER_2]])
 
