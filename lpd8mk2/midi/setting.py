@@ -1,6 +1,6 @@
 from ..hex import Hexcode
 from ..hex import convert_if_hex
-from ..constants import MIDI_MIN, MIDI_MAX
+from ..constants import *
 from ..util import flatten
 from ..rgb.rgb import rgb_to_hex_stream
 import typing
@@ -69,11 +69,11 @@ class Toggle(Setting):
 
 class FullLevel(Setting):
     def __init__(self, x: bool):
-        super().__init__(x)
+        super().__init__(not x)
 
 class PressureMessage(Setting):
-    message_type = {"off": 0, "channel": 1, "polyphonic": 2}
     def __init__(self, x: str):
+        message_type = {"off": 0, "channel": 1, "polyphonic": 2}
         super().__init__(message_type[x.lower()])
         
 
@@ -103,7 +103,7 @@ class ProgramSetting(BoundaryMixin, Setting):
 
 class LPD2MK2HeaderSetting(Collection):
     def __init__(self):
-        super().__init__([Setting(i) for i in [SYSEX_AKAI, SYSEX_LPD8_MK2]])
+        super().__init__([Setting(i) for i in [SYSEX_AKAI, SYSEX_AKAI_2, SYSEX_LPD8_MK2]])
 
 class LPD2MK2SpacerSetting(Collection):
     def __init__(self):
