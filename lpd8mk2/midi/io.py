@@ -10,8 +10,8 @@ class LPD8Mk2IO(object):
         self.lpd8_name = self._find_lpd8()
         if self.lpd8_name is None:
             raise DeviceError("No LPD8 Mk2 device found.")
-        self.in_port = mido.open_input(lpd8_name)
-        self.out_port = mido.open_output(lpd8_name)
+        self.in_port = mido.open_input(self.lpd8_name)
+        self.out_port = mido.open_output(self.lpd8_name)
 
     def _find_lpd8(self):
         dev_names: list[str] = [dev for dev in mido.get_input_names()]
@@ -23,13 +23,13 @@ class LPD8Mk2IO(object):
         self.out_port.send(msg)
 
     def receive(self, program: int):
-        receive_program_code = Collection(LPD8MK2HeaderSetting(),
+        receive_program_code = Collection([LPD8MK2HeaderSetting(),
                                           ReceiveSetting(),
                                           Setting(0),
                                           Setting(1),
-                                          ProgramSetting(program)
+                                          ProgramSetting(program)]
                                           )
-        sysex = mido.Message('sysex', [hex_to_int(h) for h in receive_program_code])
+        sysex = mido.Message('sysex', data=[hex_to_int(h) for h in receive_program_code()])
         self.send(sysex)
         response = self.in_port.receive()
         return response
