@@ -1,7 +1,9 @@
 from typing import Union
 from .setting import *
 from ..constants import *
+from ..hex import hex_to_int
 import json
+import mido
 
 # Create class methods for this. Make an obnoxious init? Ideally could have convenience fns, like set all pads [off] and [on]; set all notes to be [start], or cc to start at.
 # Needs config (json?) parser; from json class. Needs
@@ -80,4 +82,8 @@ class Program(object):
     def __call__(self, program: int):
         settings = self._compile(program)
         return settings()
+
+    def to_sysex(self, program: int) -> mido.Message:
+        compiled = [hex_to_int(h) for h in self(program)]
+        return mido.Message('sysex', data=compiled)
 
