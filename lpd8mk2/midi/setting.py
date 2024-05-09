@@ -40,6 +40,7 @@ class MinusOneMixin(object):
     def __call__(self):
         return hex(int(self.hex_setting, 16) - 1) # TO INT, minus 1, BACK TO HEX
 
+
 class Note(Setting):
     def __init__(self, x: int):
         super().__init__(x)
@@ -58,6 +59,24 @@ class Channel(BoundaryMixin,MinusOneMixin,Setting):
         MinusOneMixin.__init__(self)
         Setting.__init__(self, x)
 
+class GlobalChannel(Channel):
+    def __init__(self, x: int):
+        super().__init__(x)
+
+class Toggle(Setting):
+    def __init__(self, x: bool):
+        super().__init__(x)
+
+class FullLevel(Setting):
+    def __init__(self, x: bool):
+        super().__init__(x)
+
+class PressureMessage(Setting):
+    message_type = {"off": 0, "channel": 1, "polyphonic": 2}
+    def __init__(self, x: str):
+        super().__init__(message_type[x.lower()])
+        
+
 Collection = typing.NewType("Collection", list)
 class Collection(object):
     def __init__(self, settings: list[Setting] | Collection):
@@ -73,6 +92,10 @@ class Color(Collection):
         hexcodes = rgb_to_hex_stream(hexcode)
         super().__init__([Setting(i) for i in hexcodes])
 
+class SendSetting(Setting):
+    def __init__(self):
+        super().__init__(1)
+
 class ProgramSetting(BoundaryMixin, Setting):
     def __init__(self, x: int):
         BoundaryMixin.__init__(self, x, 1, 4).check_bounds(x)
@@ -81,6 +104,10 @@ class ProgramSetting(BoundaryMixin, Setting):
 class LPD2MK2HeaderSetting(Collection):
     def __init__(self):
         super().__init__([Setting(i) for i in [SYSEX_AKAI, SYSEX_LPD8_MK2]])
+
+class LPD2MK2SpacerSetting(Collection):
+    def __init__(self):
+        super().__init__([Setting(i) for i in [SYSEX_LPD8_MK2_SPACER_1, SYSEX_LPD8_MK2_SPACER_2]])
 
 def _class_if_not_class(x, cls):
     if not isinstance(x, cls):
@@ -108,4 +135,3 @@ class Knob(Collection):
         settings = [_class_if_not_class(x, c) for x, c in zip([cc, channel, min, max], [Setting, Channel, Setting, Setting])]
 
         super().__init__(settings)
-
