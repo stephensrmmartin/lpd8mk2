@@ -1,5 +1,6 @@
 from typing import Union
 from .setting import *
+from ..constants import *
 import json
 
 # Create class methods for this. Make an obnoxious init? Ideally could have convenience fns, like set all pads [off] and [on]; set all notes to be [start], or cc to start at.
@@ -9,27 +10,28 @@ import json
 class Program(object):
     def __init__(self, config: dict):
         self.config = config
-        # self.config = dict(program = None, # int
-        #                    global_channel = None, # int
-        #                    message = None, # int [0, 1, 2]
-        #                    full_level = None, # bool
-        #                    toggle = None, # bool
-        #                    pad_notes = None, # list[int]
-        #                    pad_ccs = None, # list[int]
-        #                    pad_pcns = None, # list[int]
-        #                    pad_channels = None, # list[int]
-        #                    pad_colors = None,  # list[list[int]] | list[list[str]]
-        #                    knob_ccs = None, # list[int]
-        #                    knob_channels = None, # list[int]
-        #                    knob_mins = None, # list[int]
-        #                    knob_maxs = None # list[int]
-        #                    )
+        # {
+        #     "global_channel": 1,
+        #     "pressure_message": "off",
+        #     "full_level": false,
+        #     "toggle": false,
+        #     "pad_note": [36, 37, 38, 39, 40, 41, 42, 43],
+        #     "pad_cc": [12, 13, 14, 15, 16, 17, 18, 19],
+        #     "pad_pcn": [0, 1, 2, 3, 4, 5, 6, 7],
+        #     "pad_channel": [10, 10, 10, 10, 10, 10, 10, 10],
+        #     "pad_off_color": [[255, 0, 0], [255, 0, 0], [255, 0, 0], [255, 0, 0], [255, 0, 0], [255, 0, 0], [255, 0, 0], [255, 0, 0]],
+        #     "pad_on_color": [[0, 0, 255], [0, 0, 255], [0, 0, 255], [0, 0, 255], [0, 0, 255], [0, 0, 255], [0, 0, 255], [0, 0, 255]],
+        #     "knob_cc": [70, 71, 72, 73, 74, 75, 76, 77],
+        #     "knob_channel": [17, 17, 17, 17, 17, 17, 17, 17],
+        #     "knob_min": [0, 0, 0, 0, 0, 0, 0, 0],
+        #     "knob_max": [127, 127, 127, 127, 127, 127, 127, 127]
+        # }
 
     @classmethod
     def from_json(cls, path: str):
         with open(path) as json_file:
             config_dict = json.load(json_file)
-        return cls(config)
+        return cls(config_dict)
 
     def to_json(self, path: str):
         pass
@@ -38,4 +40,37 @@ class Program(object):
     @classmethod
     def from_device(cls, program: int):
         pass
+
+    def _build_knobs(self):
+        knobs: list = [Knob(*k) for k in zip(*[self.config["knob_" + i] for i in ["cc", "channel", "min", "max"]])]
+        return knobs
+        # return Collection(knobs)
+        # for k in zip(*[self.config["knob_" + i] for i in ["cc", "channel", "min", "max"]]):
+        #     knobs.append(Knob(*k))
+
+    def _build_pads(self):
+        pads: list = [Pad(*p) for p in zip(*[self.config["pad_" + i] for i in ["note", "cc", "pcn", "channel", "off_color", "on_color"]])]
+        return pads
+        # return Collection(pads)
+
+    def _compile(self, program: int):
+        settings = [LPD2MK2HeaderSetting(),
+                    SendSetting(),
+                    LPD2MK2SpacerSetting(),
+                    ProgramSetting(program),
+                    GlobalChannel(self.config["global_channel"]),
+                    PressureMessage(self.config["pressure_message"]),
+                    FullLevel(self.config["full_level"]),
+                    Toggle(self.config["toggle"])]
+
+        knobs = self._build_knobs()
+        pads = self._build_pads()
+
+        settings.extend(pads)
+        settings.extend(knobs)
+        return Collection(settings)
+
+    def __call__(self, program: int):
+        settings = self._compile(program)
+        return settings()
 
