@@ -16,7 +16,7 @@ class LPD8Mk2IO(object):
     def _find_lpd8(self):
         dev_names: list[str] = [dev for dev in mido.get_input_names()]
         for name in dev_names:
-            if 'lpd8' in name.lower():
+            if 'lpd8 mk2' in name.lower():
                 return name
         return None
     def send(self, msg: mido.Message):
