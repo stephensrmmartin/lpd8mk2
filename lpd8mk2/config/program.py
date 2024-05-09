@@ -41,6 +41,13 @@ class Program(object):
     def from_device(cls, program: int):
         pass
 
+    def set_pad_colors(self, off: list[int] | Color, on: list[int] | Color, pad_numbers: list[int] = [1, 2, 3, 4, 5, 6, 7, 8]):
+        for p in pad_numbers:
+            if off is not None:
+                self.config["pad_off_color"][p-1] = off
+            if on is not None:
+                self.config["pad_on_color"][p-1] = on
+
     def _build_knobs(self):
         knobs: list = [Knob(*k) for k in zip(*[self.config["knob_" + i] for i in ["cc", "channel", "min", "max"]])]
         return knobs
