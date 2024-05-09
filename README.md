@@ -7,7 +7,9 @@ Although many excellent LPD8 configuration tools exist (For example, [lpd8editor
 # Methodology
 I used the official Akai LPD8 Mk2 editor in a Windows virtual machine, and used Wireshark to listen to the Sysex messages it sent over USB.
 For each possible input, I modified the value in the Windows tool, then examined how the Sysex message changed. 
+
 ![Official Akai LPD8 Mk2 tool](./docs/lpd8editor.png)
+
 ![Wireshark](./docs/wireshark.png)
 
 This process resulted in a mapping of the Sysex message structure:
