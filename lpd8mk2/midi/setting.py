@@ -48,6 +48,10 @@ class CC(Setting):
     def __init__(self, x: int):
         super().__init__(x)
 
+class PCN(Setting):
+    def __init__(self, x: int):
+        super().__init__(x)
+
 class Channel(BoundaryMixin,MinusOneMixin,Setting):
     def __init__(self, x: int):
         BoundaryMixin.__init__(self, x, 1, 17).check_bounds(x)
@@ -77,3 +81,31 @@ class ProgramSetting(BoundaryMixin, Setting):
 class LPD2MK2HeaderSetting(Collection):
     def __init__(self):
         super().__init__([Setting(i) for i in [SYSEX_AKAI, SYSEX_LPD8_MK2]])
+
+def _class_if_not_class(x, cls):
+    if not isinstance(x, cls):
+        return cls(x)
+    else:
+        return x
+
+class Pad(Collection):
+    def __init__(self,
+                 note: int | Note,
+                 cc: int | CC,
+                 pcn: int | PCN,
+                 channel: int | Channel,
+                 on_color : list[int] | Color,
+                 off_color: list[int] | Color):
+        settings = [_class_if_not_class(x, c) for x, c in zip([note, cc, pcn, channel, on_color, off_color], [Setting, CC, PCN, Channel, Color, Color])]
+        super().__init__(settings)
+
+class Knob(Collection):
+    def __init__(self,
+                 cc: int | Setting,
+                 channel: int | Channel,
+                 min: int | Setting,
+                 max: int | Setting):
+        settings = [_class_if_not_class(x, c) for x, c in zip([cc, channel, min, max], [Setting, Channel, Setting, Setting])]
+
+        super().__init__(settings)
+
