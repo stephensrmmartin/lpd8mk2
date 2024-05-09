@@ -16,7 +16,7 @@ class Program(object):
                            pad_ccs = None, # list[int]
                            pad_pcns = None, # list[int]
                            pad_channels = None, # list[int]
-                           pad_colors = None,  # list[list[int]] | list[str]
+                           pad_colors = None,  # list[list[int]] | list[list[str]]
                            knob_ccs = None, # list[int]
                            knob_channels = None, # list[int]
                            knob_mins = None, # list[int]
