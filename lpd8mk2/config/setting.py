@@ -96,6 +96,10 @@ class SendSetting(Setting):
     def __init__(self):
         super().__init__(1)
 
+class ReceiveSetting(Setting):
+    def __init__(self):
+        super().__init__(3)
+
 class ProgramSetting(BoundaryMixin, Setting):
     def __init__(self, x: int):
         BoundaryMixin.__init__(self, x, 1, 4).check_bounds(x)
