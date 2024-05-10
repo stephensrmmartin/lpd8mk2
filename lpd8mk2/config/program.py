@@ -86,9 +86,9 @@ class Program(object):
             json.dump(self.config, file)
 
     # This should *request* the program, then construct a Program() from it.
-    @classmethod
-    def from_device(cls, program: int):
-        pass
+    # @classmethod
+    # def from_device(cls, program: int):
+    #     pass
 
     def set_pad_colors(self, off: list[int] | Color, on: list[int] | Color, pad_numbers: list[int] = [1, 2, 3, 4, 5, 6, 7, 8]):
         for p in pad_numbers:
