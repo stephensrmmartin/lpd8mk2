@@ -82,7 +82,8 @@ class Program(object):
         return cls(copy.deepcopy(presets[preset-1]))
         
     def to_json(self, path: str):
-        pass
+        with open(path, 'x') as file:
+            json.dump(self.config, file)
 
     # This should *request* the program, then construct a Program() from it.
     @classmethod
