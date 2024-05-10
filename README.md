@@ -75,6 +75,7 @@ The fields are defined as follows:
 - `knob_max`: `list[int]` [0-127]. Maximum MIDI values corresponding to knobs 1-8. E.g., `[127, 127, 127, 127, 127, 127, 127, 127]`
 
 ## Included presets:
+The following four presets are the four programs that, to the best of my recollection, were default an the Akai LPD8 Mkii.
 
 ### Preset 1
 ```json
