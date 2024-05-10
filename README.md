@@ -54,6 +54,17 @@ io.LPD8Mk2IO().send(sysex_message)
 
 ```
 
+## Command line interface
+The CLI is currently rudimentary, and requires JSON configuration.
+
+```python
+# python3 -m lpd8mk2 <program id> <json file>
+
+python3 -m lpd8mk2 3 /path/to/json/configuration.json
+```
+
+See below for JSON file configuration.
+
 # JSON preset
 
 JSON is used as the primary format for specifying a program.
