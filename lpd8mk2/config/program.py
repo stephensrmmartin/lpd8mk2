@@ -4,6 +4,8 @@ from ..constants import *
 from ..hex import hex_to_int
 import json
 import mido
+import copy
+from .preset import presets
 
 # Create class methods for this. Make an obnoxious init? Ideally could have convenience fns, like set all pads [off] and [on]; set all notes to be [start], or cc to start at.
 # Needs config (json?) parser; from json class. Needs
@@ -35,6 +37,10 @@ class Program(object):
             config_dict = json.load(json_file)
         return cls(config_dict)
 
+    @classmethod
+    def from_preset(cls, preset: int):
+        return cls(copy.deepcopy(presets[preset-1]))
+        
     def to_json(self, path: str):
         pass
 
