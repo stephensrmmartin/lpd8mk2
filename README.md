@@ -59,6 +59,7 @@ The CLI is currently rudimentary, and requires JSON configuration.
 
 ```python
 # python3 -m lpd8mk2 <program id> <json file>
+# E.g., set program 3 to the program defined by configuration.json
 
 python3 -m lpd8mk2 3 /path/to/json/configuration.json
 ```
