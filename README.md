@@ -48,7 +48,7 @@ print(prog(4))
 sysex_message = prog.to_sysex(4)
 
 # Send it
-io.LPD8Mk2IO().send(sysex_message)
+midi.LPD8Mk2IO().send(sysex_message)
 
 # On the device, change to program 4 if not already. If on program 4, then change to another then back to 4.
 
