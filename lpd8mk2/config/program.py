@@ -30,29 +30,29 @@ class Program(object):
 
     """
     def __init__(self, config: dict):
-    """Configure program for the Akai LPD8 Mk2 Midi device.
+        """Configure program for the Akai LPD8 Mk2 Midi device.
 
-    Attributes:
-    config: dict(
-        "global_channel": int [1-16],
-        "pressure_message": str ("off", "channel", "polyphonic"),
-        "full_level": bool,
-        "toggle": bool,
-        "pad_note": list[int] : MIDI note value for each of 8 pads,
-        "pad_cc": list[int] : MIDI CC value for each of 8 pads,
-        "pad_pcn": list[int] : MIDI program change value for each of 8 pads,
-        "pad_channel": list[int] : MIDI channel for each of 8 pads [1-17; if 17, set to global channel],
-        "pad_off_color": list[list[int]] : List of RGB values for each of 8 pads to display when off.,
-        "pad_on_color": list[list[int]] : List of RGB values for each of 8 pads to display when on.,
-        "knob_cc": list[int]: MIDI CC value for each of 8 knobs.,
-        "knob_channel": list[int]: MIDI channel for each of 8 knobs. [1-17; if 17, set to global channel],
-        "knob_min": list[int]: Minimum MIDI value for each of 8 knobs.,
-        "knob_max": list[int]: Maximum MIDI value for each of 8 knobs.,
-    )
+        Attributes:
+        config: dict(
+            "global_channel": int [1-16],
+            "pressure_message": str ("off", "channel", "polyphonic"),
+            "full_level": bool,
+            "toggle": bool,
+            "pad_note": list[int] : MIDI note value for each of 8 pads,
+            "pad_cc": list[int] : MIDI CC value for each of 8 pads,
+            "pad_pcn": list[int] : MIDI program change value for each of 8 pads,
+            "pad_channel": list[int] : MIDI channel for each of 8 pads [1-17; if 17, set to global channel],
+            "pad_off_color": list[list[int]] : List of RGB values for each of 8 pads to display when off.,
+            "pad_on_color": list[list[int]] : List of RGB values for each of 8 pads to display when on.,
+            "knob_cc": list[int]: MIDI CC value for each of 8 knobs.,
+            "knob_channel": list[int]: MIDI channel for each of 8 knobs. [1-17; if 17, set to global channel],
+            "knob_min": list[int]: Minimum MIDI value for each of 8 knobs.,
+            "knob_max": list[int]: Maximum MIDI value for each of 8 knobs.,
+        )
 
-    It is recommended to use the from_json or from_preset for convenience.
-    See readme.md for json format and existing presets.
-    """
+        It is recommended to use the from_json or from_preset for convenience.
+        See readme.md for json format and existing presets.
+        """
         self.config = config
         # {
         #     "global_channel": 1,
