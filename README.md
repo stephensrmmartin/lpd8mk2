@@ -15,6 +15,11 @@ For each possible input, I modified the value in the Windows tool, then examined
 This process resulted in a mapping of the Sysex message structure:
 ![Sysex message for Akai LPD8 mk2](./docs/hex_diagram.svg)
 
+# Other Akai Devices
+
+I designed the program configuration framework in a manner that should make supporting other Akai devices relatively simple.
+However, I do not have other Akai devices. Please reach out if you have an Akai device to send, or can provide the Sysex message layout, and I would be happy to support it. 
+
 # Usage
 
 ```python
