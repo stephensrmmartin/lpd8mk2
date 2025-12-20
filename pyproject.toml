@@ -4,7 +4,7 @@ version = "0.2.1"
 description = "Library and CLI tool for configuring the Akai LPD8 Mk2 Midi Controller"
 authors = [{name = "Stephen Martin", email = "stephensrmmartin@gmail.com"}]
 readme = "README.md"
-requires-python = "^3.12"
+requires-python = ">=3.12,^3.13"
 dynamic = ["dependencies"]
 
 [tool.poetry.dependencies]
